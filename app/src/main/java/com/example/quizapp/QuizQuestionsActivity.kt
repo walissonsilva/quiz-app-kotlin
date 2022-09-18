@@ -13,6 +13,8 @@ import androidx.core.content.ContextCompat
 import kotlin.reflect.typeOf
 
 class QuizQuestionsActivity : AppCompatActivity() {
+    private var userName: String? = null
+
     private val questionsList: ArrayList<Question> = Constants.getQuestions()
     private var currentQuestionIndex = 0;
     private var selectedAlternativeIndex = -1;
@@ -30,6 +32,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_questions)
+
+        userName = intent.getStringExtra(Constants.USER_NAME)
 
         tvQuestion = findViewById(R.id.tvQuestion)
         ivImage = findViewById(R.id.ivImage)
@@ -63,7 +67,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
                     }
 
                     isAnswerChecked = true
-                    btnSubmit?.text = "NEXT"
+                    btnSubmit?.text = if (currentQuestionIndex == questionsList.size - 1) "FINISH" else "GO TO NEXT QUESTION"
                     selectedAlternativeIndex = -1
                 }
             } else {
@@ -72,6 +76,9 @@ class QuizQuestionsActivity : AppCompatActivity() {
                     updateQuestion()
                 } else {
                     val intent = Intent(this, ResultActivity::class.java)
+                    intent.putExtra(Constants.USER_NAME, userName)
+                    intent.putExtra(Constants.TOTAL_QUESTIONS, questionsList.size)
+                    intent.putExtra(Constants.SCORE, totalScore)
                     startActivity(intent)
                     finish()
                 }

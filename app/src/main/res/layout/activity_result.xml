@@ -26,6 +26,7 @@
         />
 
     <TextView
+        android:id="@+id/congratulationsTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Congratulations, Walls!"
@@ -37,6 +38,7 @@
         />
 
     <TextView
+        android:id="@+id/scoreTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Your score is 5 of 10"
@@ -47,9 +49,10 @@
         />
 
     <Button
+        android:id="@+id/btnRestart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="finish"
+        android:text="try again"
         android:textAllCaps="true"
         android:backgroundTint="@color/white"
         android:textColor="@color/colorPrimary"
