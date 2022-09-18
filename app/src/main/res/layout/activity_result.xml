@@ -7,6 +7,7 @@
     tools:context=".ResultActivity"
     android:background="@drawable/app_bg"
     android:gravity="center"
+    android:paddingHorizontal="30dp"
     android:orientation="vertical">
 
     <TextView
@@ -29,7 +30,7 @@
         android:id="@+id/congratulationsTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Congratulations, Walls!"
+        tools:text="Congratulations, Walisson!"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="25sp"
@@ -56,7 +57,6 @@
         android:textAllCaps="true"
         android:backgroundTint="@color/white"
         android:textColor="@color/colorPrimary"
-        android:layout_marginHorizontal="30dp"
         android:textSize="18sp"
         />
 
