@@ -41,7 +41,7 @@
         android:id="@+id/scoreTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your score is 5 of 10"
+        android:text="Your score is 5 out of 10"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20sp"
