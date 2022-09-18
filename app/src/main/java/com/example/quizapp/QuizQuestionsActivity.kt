@@ -1,5 +1,6 @@
 package com.example.quizapp
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -69,6 +70,10 @@ class QuizQuestionsActivity : AppCompatActivity() {
                 if (currentQuestionIndex < questionsList.size - 1) {
                     currentQuestionIndex++
                     updateQuestion()
+                } else {
+                    val intent = Intent(this, ResultActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
 
                 isAnswerChecked = false
