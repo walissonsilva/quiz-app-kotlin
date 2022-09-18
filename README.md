@@ -9,7 +9,7 @@ The app consists of 3 screens. On the first screen, the user informs his name, b
 ![Screenshot 1](/screenshots/screenshot-1.png)
 ![Screenshot 2](/screenshots/screenshot-2.png)
 
-# Demo
+# Demo on YouTube
 
 If you want to see this app running, click on image below to take a look on a demo illustrated in a YouTube video:
 
