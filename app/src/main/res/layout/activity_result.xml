@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Result"
+        android:text="Your Score"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp"
@@ -31,9 +31,9 @@
         android:text="Congratulations, Walls!"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="25sp"
         android:textStyle="bold"
-        android:paddingVertical="16dp"
+        android:layout_marginTop="30dp"
         />
 
     <TextView
@@ -42,7 +42,7 @@
         android:text="Your score is 5 of 10"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:paddingVertical="16dp"
         />
 
