@@ -1,17 +1,22 @@
 package com.example.quizapp
 
+import android.graphics.Color
+import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.view.View
+import android.widget.*
+import androidx.core.content.ContextCompat
 import kotlin.reflect.typeOf
 
 class QuizQuestionsActivity : AppCompatActivity() {
     private val questionsList: ArrayList<Question> = Constants.getQuestions()
-    private var questionIndex = 0;
+    private var currentQuestionIndex = 0;
+    private var selectedAlternativeIndex = -1;
+    private var isAnswerChecked = false;
+    private var totalScore = 0;
     private val alternativesIds = arrayOf(R.id.optionOne, R.id.optionTwo, R.id.optionThree, R.id.optionFour)
 
     private var tvQuestion: TextView? = null
@@ -40,28 +45,100 @@ class QuizQuestionsActivity : AppCompatActivity() {
         updateQuestion()
 
         btnSubmit?.setOnClickListener {
-            if (questionIndex < questionsList.size - 1) {
-                questionIndex++
-                updateQuestion()
+            if (!isAnswerChecked) {
+                val anyAnswerIsChecked = selectedAlternativeIndex != -1
+                if (!anyAnswerIsChecked) {
+                    Toast.makeText(this, "Please, select an alternative", Toast.LENGTH_SHORT).show()
+                } else {
+                    val currentQuestion = questionsList[currentQuestionIndex]
+                    if (
+                        selectedAlternativeIndex == currentQuestion.correctAnswerIndex
+                    ) {
+                        answerView(tvAlternatives!![selectedAlternativeIndex], R.drawable.correct_option_border_bg)
+                        totalScore++
+                    } else {
+                        answerView(tvAlternatives!![selectedAlternativeIndex], R.drawable.wrong_option_border_bg)
+                        answerView(tvAlternatives!![currentQuestion.correctAnswerIndex], R.drawable.correct_option_border_bg)
+                    }
+
+                    isAnswerChecked = true
+                    btnSubmit?.text = "NEXT"
+                    selectedAlternativeIndex = -1
+                }
+            } else {
+                if (currentQuestionIndex < questionsList.size - 1) {
+                    currentQuestionIndex++
+                    updateQuestion()
+                }
+
+                isAnswerChecked = false
             }
         }
 
-
-
+        tvAlternatives?.let {
+            for (optionIndex in it.indices) {
+                it[optionIndex].let {
+                    it.setOnClickListener{
+                        if (!isAnswerChecked) {
+                            selectedAlternativeView(it as TextView, optionIndex)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun updateQuestion() {
-        // Render Question Text
-        tvQuestion?.text = questionsList[questionIndex].questionText
-        // Render Question Image
-        ivImage?.setImageResource(questionsList[questionIndex].image)
-        // progressBar
-        progressBar?.progress = questionIndex + 1
-        // Text of progress bar
-        tvProgress?.text = "${questionIndex + 1}/${questionsList.size}"
+        defaultAlternativesView()
 
-        for (alternativeIndex in questionsList[questionIndex].alternatives.indices) {
-            tvAlternatives!![alternativeIndex].text = questionsList[questionIndex].alternatives[alternativeIndex]
+        // Render Question Text
+        tvQuestion?.text = questionsList[currentQuestionIndex].questionText
+        // Render Question Image
+        ivImage?.setImageResource(questionsList[currentQuestionIndex].image)
+        // progressBar
+        progressBar?.progress = currentQuestionIndex + 1
+        // Text of progress bar
+        tvProgress?.text = "${currentQuestionIndex + 1}/${questionsList.size}"
+
+        for (alternativeIndex in questionsList[currentQuestionIndex].alternatives.indices) {
+            tvAlternatives!![alternativeIndex].text = questionsList[currentQuestionIndex].alternatives[alternativeIndex]
         }
+
+        btnSubmit?.text = if (currentQuestionIndex == questionsList.size - 1) "FINISH" else "SUBMIT"
+    }
+
+    private fun defaultAlternativesView() {
+        for (alternativeTv in tvAlternatives!!) {
+            alternativeTv.typeface = Typeface.DEFAULT
+            alternativeTv.setTextColor(Color.parseColor("#7A8089"))
+            alternativeTv.background = ContextCompat.getDrawable(
+                this@QuizQuestionsActivity,
+                R.drawable.default_option_border_bg
+            )
+        }
+    }
+
+    private fun selectedAlternativeView(option: TextView, index: Int) {
+        defaultAlternativesView()
+        selectedAlternativeIndex = index
+
+        option.setTextColor(
+            Color.parseColor("#363A43")
+        )
+        option.setTypeface(option.typeface, Typeface.BOLD)
+        option.background = ContextCompat.getDrawable(
+            this@QuizQuestionsActivity,
+            R.drawable.selected_option_border_bg
+        )
+    }
+
+    private fun answerView(view: TextView, drawableId: Int) {
+        view.background = ContextCompat.getDrawable(
+            this@QuizQuestionsActivity,
+            drawableId
+        )
+        tvAlternatives!![selectedAlternativeIndex].setTextColor(
+            Color.parseColor("#FFFFFF")
+        )
     }
 }
