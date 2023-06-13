@@ -18,7 +18,7 @@ If you want to see this app running, click on image below to take a look on a de
 ## Author
 
 <a href="https://www.walissonsilva.com">
- <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/13500056?v=4" width="100px;" alt=""/>
+ <img style="border-radius: 50px;" src="https://avatars.githubusercontent.com/u/13500056?v=4" width="100px;" alt=""/>
  <br />
  <b>Walisson Silva</b></a>
 
